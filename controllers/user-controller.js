@@ -1,10 +1,14 @@
 const { User } = require('../models');
 
 const UserController = {
-    getAllUsers(req, res) {
-        User.find({})
-        .then(userData => res.json(userData))
-        .catch(err => res.status(500).json(err));
+    async getAllUsers(req, res) {
+      try {
+        const user = await User.find();
+        res.json(user);
+      } catch (err) {
+        console.log("error", err)
+        res.status(500).json(err);
+      }
     },
 
     getUserById(req, res) {
